@@ -1,98 +1,159 @@
-/* rock = 0
-  paper = 1
-  scissor = 2
-  */
-
 let playerScore = 0;
 let computerScore = 0;
-let count = 0;
+let roundWinner = '';
 
-function computerPlay(computerChoice){
+function computerPlay(){
 
-    let c = Math.random() * 3;
-    c = Math.floor(c);
-
-    if(c == 0){
-        computerChoice.value = "Rock";
+    let c = Math.floor(Math.random() * 3);
+    switch(c) {
+        case 0: {
+            return "ROCK";
+        }
+        case 1 : {
+            return "PAPER";
+        }
+        case 2 : {
+            return "SCISSORS";
+        }
     }
-
-    else if(c == 1){
-        computerChoice.value = "Paper";
-    }
-
-    else if(c == 2){
-        computerChoice.value = "Scissor";
-    }
-
-    return c;
-
 }
 
-const Button1 = document.querySelector(".rock");
-const Button2 = document.querySelector(".paper");
-const Button3 = document.querySelector(".scissors");
-const Result = document.querySelector(".result");
+function isGameOver() {
+    return playerScore === 5 || computerScore === 5;
+}
 
-Button1.addEventListener("click" , () => playRound(0 , "Rock"));
-Button2.addEventListener("click" , () => playRound(1 , "Paper"));
-Button3.addEventListener("click", () => playRound(2 , "Scissor"));
+// UI 
 
-function playRound(playerChoiceInt, playerChoice){
-    count++;
-    const currentRound = document.createElement('h3');
-    currentRound.textContent = `Round : ${count}`;
-    Result.appendChild(currentRound);
-    let win_Array = [[0, 2, 1],
-                     [1, 0, 2],
-                     [2, 1, 0]];
+const roundResult = document.getElementById("scoreInfo");
+const roundMessage = document.getElementById("scoreMessage");
+const playerSign = document.getElementById("playerSign");
+const computerSign = document.getElementById("computerSign");
+const playerScorePara = document.getElementById("playerScore");
+const computerScorePara = document.getElementById("computerScore");
+const rockBtn = document.getElementById("rockBtn");
+const paperBtn = document.getElementById("paperBtn");
+const scissorsBtn = document.getElementById("scissorBtn");
+const endGameModal = document.getElementById("endGameModal");
+const endGameMessage = document.getElementById("endGameMessage");
+const restartBtn = document.getElementById("restartBtn");
+const overLay = document.getElementById("overlay");
 
-    let computerChoice = {value : ""};
-    let computerChoiceInt = computerPlay(computerChoice);
+rockBtn.addEventListener("click" , () => handleClick("ROCK"));
+paperBtn.addEventListener("click" , () => handleClick("PAPER"));
+scissorsBtn.addEventListener("click" , () => handleClick("SCISSORS"));
+restartBtn.addEventListener("click", restartGame);
+overLay.addEventListener("click", closeEndgameModal);
 
-    let result = win_Array[playerChoiceInt][computerChoiceInt];
-    let string = "";
-
-    if(result == 0){
-        string = `It's a tie! ${"\n"} You choose: ${playerChoice} ${"\n"} The Computer choose: ${computerChoice.value} ${"\n"}`;
-        const para = document.createElement('p');
-        para.textContent = string;
-        Result.appendChild(para);
+function handleClick(playerChoice){
+    if(isGameOver()){
+        openEndgameModel()
+        return 
     }
+    let computerChoice = computerPlay();
+    playRound(playerChoice, computerChoice);
+    updateChoices(playerChoice, computerChoice);
+    updateScore();
 
-    else if(result == 1){
+    if(isGameOver()){
+        openEndgameModel();
+        setFinalMessage();
+    }
+}
+
+function playRound(playerChoice, computerChoice){
+    if(playerChoice == computerChoice){
+        roundWinner = 'tie';
+    }
+    else if(
+        playerChoice == "ROCK" && computerChoice == "SCISSORS" ||
+        playerChoice == "PAPER" && computerChoice == "ROCK" ||
+        playerChoice == "SCISSORS" && computerChoice == "PAPER"  
+        )
+    {
         playerScore++;
-        string = `You Won! ${"\n"} You choose: ${playerChoice} ${"\n"} The Computer choose: ${computerChoice.value} ${"\n"}`
-        const para = document.createElement('p');
-        para.textContent = string;
-        Result.appendChild(para);
+        roundWinner = 'Player';
     }
-
-    else if(result == 2){
-        computerScore++;
-        string = `You Lost! ${"\n"} You choose: ${playerChoice} ${"\n"} The Computer choose: ${computerChoice.value} ${"\n"}`;
-        const para = document.createElement('p');
-        para.textContent = string;
-        Result.appendChild(para);
-    }
-
     else {
-        string = `No Result ${"\n"}`;
-        const para = document.createElement('p');
-        para.textContent = string;
-        Result.appendChild(para);
+        computerScore++;
+        roundWinner = 'Computer'
     }
-    if(count == 5){
-        count = 0;
-        const l1 = document.createElement('h2');
-        if(playerScore > computerScore)
-            l1.textContent = "Winner : Player";
-        else if(playerScore < computerScore)
-            l1.textContent = "Winner : Computer";
-        else
-            l1.textContent = "It's a tie!";
-        Result.appendChild(l1);
-        playerScore = 0;
-        computerScore = 0;
+    updateScoreMessage(roundWinner , playerChoice , computerChoice);
+}
+
+function updateScoreMessage(roundWinner , playerChoice, computerChoice) {
+    if(roundWinner == "Player"){
+        roundMessage.textContent = `${playerChoice} beats ${computerChoice}`;
+        return;
+    }
+    else if(roundWinner == "Computer") {
+        roundMessage.textContent = `${playerChoice} is beaten by ${computerChoice}`;
+        return;
+    }
+    roundMessage.textContent = `${playerChoice} ties with ${computerChoice}`;
+}
+
+function updateChoices(playerChoice, computerChoice){
+    switch(playerChoice){
+        case "ROCK" :
+            playerSign.textContent = "✊"
+            break
+        case "PAPER" :
+            playerSign.textContent = "✋"
+            break
+        case "SCISSORS" :
+            playerSign.textContent = "✌"
+            break
+    }
+    switch(computerChoice){
+        case "ROCK" :
+            computerSign.textContent = "✊"
+            break
+        case "PAPER" :
+            computerSign.textContent = "✋"
+            break
+        case "SCISSORS" :
+            computerSign.textContent = "✌"
+            break
     }
 }
 
+function updateScore() {
+    if(roundWinner == "tie"){
+        roundResult.textContent = "It's a tie!"
+    }
+    else if(roundWinner == "Player"){
+        roundResult.textContent = "You Won!"
+    }
+    else{
+        roundResult.textContent = "You Lost!"
+    }
+    playerScorePara.textContent = `Player : ${playerScore}`;
+    computerScorePara.textContent = `Computer : ${computerScore}`;
+}
+
+function openEndgameModel() {
+    endGameModal.classList.add("active");
+    overLay.classList.add("active");
+}
+
+function closeEndgameModal() {
+    endGameModal.classList.remove("active");
+    overLay.classList.remove("active");
+}
+
+function setFinalMessage() {
+    endGameMessage.textContent = playerScore > computerScore ? "You Won!" : "You Lost...";
+}
+
+function restartGame() {
+    playerScore = 0;
+    computerScore = 0;
+    roundResult.textContent = "Choose Your Weapon";
+    roundMessage.textContent = "First to score 5 points wins the game";
+    playerScorePara.textContent = "Player : 0";
+    computerScorePara.textContent = "Computer : 0";
+    playerSign.textContent = "❔";
+    computerSign.textContent = "❔";
+    endGameModal.classList.remove("active");
+    overLay.classList.remove("active");
+}

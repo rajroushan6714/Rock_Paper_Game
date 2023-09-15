@@ -11,8 +11,11 @@
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="shortcut icon" href="favicon.ico" />
+    <script
+      src="https://kit.fontawesome.com/4c536a6bd5.js"
+      crossorigin="anonymous"
+    ></script>
 </head>
 <body>
     <header class="header">
@@ -31,11 +34,11 @@
                 </div>
                 <div class="score_box">
                     <div class="sign" id="computerSign">❔</div>
-                    <p class="score" id="computerSign">Computer : 0</p>
+                    <p class="score" id="computerScore">Computer : 0</p>
                 </div>
             </div>
         </div>
-        <div class="option_selector buttons">
+        <div class="buttons">
             <button class="rock btn btn_square" id="rockBtn">
                 <div class="sign">✊</div>
             </button>
@@ -58,11 +61,12 @@
         <a href="https://github.com/rajroushan6714" target="_blank">
           <i class="fab fa-github"></i>
         </a>
-      </footer>
-    <!-- <footer class="footer">
-        <p>copyRight : Raj Roushan.</p>
-    </footer> -->
-    <div class="result"></div>
+    </footer>
+    <div class="modal" id="endGameModal">
+        <p class="modal_title" id="endGameMessage"></p>
+        <button class="btn btn_restart" id="restartBtn">Play Again</button>
+    </div>
+    <div class="overlay" id="overlay"></div>
     <script src="./index.js"></script>
 </body>
 </html>
