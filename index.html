@@ -3,10 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body>
-    <h1>Rock, Paper, Scissors Game vs Computer.</h1>
+    <header class="header">
+        <h1 class="title">ROCK PAPER SCISSORS</h1>
+    </header>
+    <main class="main">
+        <div class="score_board">
+            <h2 class="score_info" id="scoreInfo">Choose Your Weapon</h2>
+            <h3 class="score_message" id="scoreMessage">
+                First to reach 5 points wins the game.
+            </h3>
+            <div class="score_container">
+                <div class="score_box">
+                    <div class="sign" id="playerSign">❔</div>
+                    <p class="score" id="playerScore">Player : 0</p>
+                </div>
+                <div class="score_box">
+                    <div class="sign" id="computerSign">❔</div>
+                    <p class="score" id="computerSign">Computer : 0</p>
+                </div>
+            </div>
+        </div>
+        <div class="option_selector buttons">
+            <button class="rock btn btn_square" id="rockBtn">
+                <div class="sign">✊</div>
+            </button>
+            <button class="paper btn btn_square" id="paperBtn">
+                <div class="sign">✋</div>
+            </button>
+            <button class="scissors btn btn_square" id="scissorBtn">
+                <div class="sign">✌</div>
+            </button>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>
+          Copyright ©
+          <script>
+            document.write(new Date().getFullYear())
+          </script>
+          Raj Roushan
+        </p>
+        <a href="https://github.com/rajroushan6714" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      </footer>
+    <!-- <footer class="footer">
+        <p>copyRight : Raj Roushan.</p>
+    </footer> -->
+    <div class="result"></div>
     <script src="./index.js"></script>
 </body>
 </html>

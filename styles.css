@@ -1,0 +1,154 @@
+/* the below are css variables, which can be used later on*/
+:root {
+    --primary-light: #ddd;
+    --primary-dark: #222831;
+    --secondary-dark: #393e46;
+    --secondary-dark-hover: #4a4f57;
+    --secondary-dark-active: #5b5f68;
+    --header: #111720;
+    --primary-yellow: #fac650;
+  }
+
+*,
+*::before,
+*::after  {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  html {
+    /* footer support */
+    position: relative;
+    min-height: 100%;
+  }
+
+  body  {
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    /* footer support */
+    margin-bottom: 100px;
+  }
+
+  button {
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    outline: none;
+  }
+
+  /* Header */
+
+  .header  {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0px;
+    background-color: var(--header);
+  }
+
+  .title {
+    font-size: 32px;
+    color: var(--primary-yellow);
+    font-family: 'Press Start 2P', cursive;
+  }
+
+  /* Main */
+
+  .main {
+    margin-top: 40px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .score_board  {
+    margin-bottom: 16px;
+  }
+
+  .score_info  {
+    font-size: 32px;
+  }
+
+  .score_message  {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .score_container  {
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    max-width: 400px;
+    padding: 10px;
+    margin: 0 auto;
+  }
+
+  .score_box  {
+    width: 170px;
+  }
+
+  .sign  {
+    font-size: 80px;
+    margin-bottom: 10px;
+  }
+
+  .score  {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .buttons  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .btn  {
+    border-radius: 10px;
+    background-color: var(--secondary-dark);
+  }
+
+  .btn_square  {
+    width: 160px;
+    height: 160px;
+  }
+
+  .btn:hover  {
+    background-color: var(--secondary-dark-hover);
+  }
+
+  .btn:active  {
+    background-color: var(--secondary-dark-active);
+  }
+
+  /* FOOTER */
+
+  .footer  {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px;
+    color: var(--primary-light);
+    font-size: 20px;
+  }
+
+  .fa-github {
+    color: var(--primary-light);
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .fa-github:hover {
+    transform: rotate(360deg) scale(1.25);
+}

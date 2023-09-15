@@ -5,6 +5,7 @@
 
 let playerScore = 0;
 let computerScore = 0;
+let count = 0;
 
 function computerPlay(computerChoice){
 
@@ -12,87 +13,86 @@ function computerPlay(computerChoice){
     c = Math.floor(c);
 
     if(c == 0){
-        computerChoice.value = "rock";
+        computerChoice.value = "Rock";
     }
 
     else if(c == 1){
-        computerChoice.value = "paper";
+        computerChoice.value = "Paper";
     }
 
     else if(c == 2){
-        computerChoice.value = "scissors";
+        computerChoice.value = "Scissor";
     }
-
-    console.log(`Computer choice: ${computerChoice.value}`);
 
     return c;
 
 }
 
-function playRound(playerChoiceInt, playerChoice, computerChoice , computerChoiceInt){
+const Button1 = document.querySelector(".rock");
+const Button2 = document.querySelector(".paper");
+const Button3 = document.querySelector(".scissors");
+const Result = document.querySelector(".result");
 
+Button1.addEventListener("click" , () => playRound(0 , "Rock"));
+Button2.addEventListener("click" , () => playRound(1 , "Paper"));
+Button3.addEventListener("click", () => playRound(2 , "Scissor"));
+
+function playRound(playerChoiceInt, playerChoice){
+    count++;
+    const currentRound = document.createElement('h3');
+    currentRound.textContent = `Round : ${count}`;
+    Result.appendChild(currentRound);
     let win_Array = [[0, 2, 1],
                      [1, 0, 2],
                      [2, 1, 0]];
 
+    let computerChoice = {value : ""};
+    let computerChoiceInt = computerPlay(computerChoice);
+
     let result = win_Array[playerChoiceInt][computerChoiceInt];
+    let string = "";
 
     if(result == 0){
-        return `It's a tie! You choose: ${playerChoice} , and The Computer choose: ${computerChoice.value}`;
+        string = `It's a tie! ${"\n"} You choose: ${playerChoice} ${"\n"} The Computer choose: ${computerChoice.value} ${"\n"}`;
+        const para = document.createElement('p');
+        para.textContent = string;
+        Result.appendChild(para);
     }
 
     else if(result == 1){
         playerScore++;
-        return `You Won! You choose: ${playerChoice} , and The Computer choose: ${computerChoice.value}`
+        string = `You Won! ${"\n"} You choose: ${playerChoice} ${"\n"} The Computer choose: ${computerChoice.value} ${"\n"}`
+        const para = document.createElement('p');
+        para.textContent = string;
+        Result.appendChild(para);
     }
 
     else if(result == 2){
         computerScore++;
-        return `You Lost! You choose: ${playerChoice} , and The Computer choose: ${computerChoice.value}`;
+        string = `You Lost! ${"\n"} You choose: ${playerChoice} ${"\n"} The Computer choose: ${computerChoice.value} ${"\n"}`;
+        const para = document.createElement('p');
+        para.textContent = string;
+        Result.appendChild(para);
     }
 
     else {
-        return "No Result";
+        string = `No Result ${"\n"}`;
+        const para = document.createElement('p');
+        para.textContent = string;
+        Result.appendChild(para);
     }
-
-}
-
-function game(){
-
-    let computerChoice = {value : ""};
-    let computerChoiceInt ;
-    let playerChoice;
-    let playerChoiceInt;
-
-    for(let i = 1 ; i <= 5 ; i++){
-
-        playerChoice = prompt("Please enter your choice: ").toLowerCase();
-
-        if(playerChoice == "rock"){
-            playerChoiceInt = 0;
-        }
-
-        else if(playerChoice == "paper"){
-            playerChoiceInt = 1;
-        }
-
-        else if(playerChoice == "scissors"){
-            playerChoiceInt = 2;
-        }
-        else{
-            console.log("Wrong Choice");
-            console.log(`Player Score: ${playerScore}`);
-            console.log(`Computer Score: ${computerScore}`);
-            console.log("\n");
-            continue;
-        }
-        computerChoiceInt = computerPlay(computerChoice);
-
-        console.log(playRound(playerChoiceInt, playerChoice, computerChoice , computerChoiceInt));
-
-        console.log(`Player Score: ${playerScore}`);
-        console.log(`Computer Score: ${computerScore}`);
-        console.log("\n");
-
+    if(count == 5){
+        count = 0;
+        const l1 = document.createElement('h2');
+        if(playerScore > computerScore)
+            l1.textContent = "Winner : Player";
+        else if(playerScore < computerScore)
+            l1.textContent = "Winner : Computer";
+        else
+            l1.textContent = "It's a tie!";
+        Result.appendChild(l1);
+        playerScore = 0;
+        computerScore = 0;
     }
 }
+
