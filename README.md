@@ -7,3 +7,6 @@ I started this project when I was learning web dev by Odin Project.
 Right Now, it's almost complete. 
 
 But, to make it visually more attractive a few changes are needed.
+
+Everything is finally ready
+ Now , we just need to merge this branch.

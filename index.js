@@ -82,14 +82,18 @@ function playRound(playerChoice, computerChoice){
 
 function updateScoreMessage(roundWinner , playerChoice, computerChoice) {
     if(roundWinner == "Player"){
-        roundMessage.textContent = `${playerChoice} beats ${computerChoice}`;
+        roundMessage.textContent = `${firstLetterCapital(playerChoice)} beats ${computerChoice.toLowerCase()}`;
         return;
     }
     else if(roundWinner == "Computer") {
-        roundMessage.textContent = `${playerChoice} is beaten by ${computerChoice}`;
+        roundMessage.textContent = `${firstLetterCapital(playerChoice)} is beaten by ${computerChoice.toLowerCase()}`;
         return;
     }
-    roundMessage.textContent = `${playerChoice} ties with ${computerChoice}`;
+    roundMessage.textContent = `${firstLetterCapital(playerChoice)} ties with ${computerChoice.toLowerCase()}`;
+}
+
+function firstLetterCapital(string){
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
 function updateChoices(playerChoice, computerChoice){
